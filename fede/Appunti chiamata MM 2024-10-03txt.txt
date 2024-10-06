@@ -1,0 +1,33 @@
+2024-10-03
+
+Prima di fare RobustScaling i tipi devono essere dei numeri.
+
+La colonna Time è inutile, da rimuovere. 
+La colonna Amount non è detto che sia utile. 
+
+Cosa fa PCA?
+Riducendo i dati a 30 colonne:
+	hanno camuffato i dati, anonimizzandoli
+	sembra che abbiano tolto informazioni volutamente
+	quindi noi partiamo già da variabili PCA-izzate, su cui l'info è ridotta
+
+O uso modelli tolleranti allo sbilanciamento (ad esempio XGBoost)
+O manipolo i dati bilanciandoli, e poi uso un modello ok per dati bilanciati.
+
+
+Sul bilanciamento.
+I dati di frode si possono dividere in porzioni, una di training e una di test. 
+A ogni iterazinoe nel ciclo si può variare il subset delle frodi
+E' importante mantenere lo stesso bilanciamento in training e test (e opz anche in validation). 
+	Ad esempio se in training ho (50% non-frodi, 50% frodi) anche in test devo tenere (50% non-frodi, 50% frodi). 
+	Noi abbiamo accuracy alta ma allenavamo sul bilanciato e testavamo sul dataset sbilanciato (credo)
+	Dopo aver allenato e testato con queste regole si può ritestare usando l'intero dataset
+
+MM: Sbilanciamento IMPORTANTE
+Esiste sw/pacchetti che gestiscono autom. il bilanciamento dei dati.
+
+XGBoost
+	Ha una caratteristica specifica di funzionare su dataset sbilanciati
+	leggersi nei pacchetti di python i dettagli
+	
+SMOTE (?) : Tecnica (?) per generare nuovi dati. Data augmentation?
